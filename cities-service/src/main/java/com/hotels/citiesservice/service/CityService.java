@@ -5,6 +5,7 @@ import com.hotels.citiesservice.dto.HotelDto;
 import com.hotels.citiesservice.model.City;
 import com.hotels.citiesservice.repository.ICityRepository;
 import com.hotels.citiesservice.repository.IHotelsApi;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class CityService implements ICityService{
     }
 
     @Override
-
+    @CircuitBreaker(name="hotels-service", fallbackMethod = "fallbackGetHotelsByCity")
     public CityDto findCityByCountryAndName(String country, String name) {
         CityDto city = new CityDto();
 
@@ -58,6 +59,11 @@ public class CityService implements ICityService{
 
         }
         return null;
+    }
+
+    @Override
+    public CityDto fallbackGetHotelsByCity(Throwable throwable) {
+        return new CityDto(99999L,"Fallido","Fallido","Fallido","Fallido",null);
     }
 
 }

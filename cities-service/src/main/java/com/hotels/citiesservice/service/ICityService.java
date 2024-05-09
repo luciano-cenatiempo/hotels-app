@@ -11,4 +11,5 @@ public interface ICityService {
     public List<City> getAllCities();
     public CityDto getHotelsByCity(Long cityId);
     public CityDto findCityByCountryAndName(String country, String name);
+    public CityDto fallbackGetHotelsByCity(Throwable throwable);
 }
