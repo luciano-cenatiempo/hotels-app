@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: eureka-server
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  instance:
+    lease-renewal-interval-in-seconds: 0
+  renewalPercentThreshold: 0.85
